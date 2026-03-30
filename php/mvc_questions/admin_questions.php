@@ -30,6 +30,7 @@ if(!isset($_SESSION["user_id"])){
 <header>
     <h1>🎓 4Learning - Panel d'Entraide</h1>
     <hr>
+    <h1><a href="../../../index.php">Retour a l'acceuil</a></h1>
 </header>
 
 <?php
