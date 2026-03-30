@@ -1,7 +1,7 @@
 <?php
-include("php/db_connect.php"); 
-include("php/crud_questions.php"); // Tes fonctions create, read, update, delete
-include("php/vue_questions.php");   // Tes fonctions html_form et html_table
+include("../../db_connect.php"); 
+include("crud_questions.php"); // Tes fonctions create, read, update, delete
+include("vue_questions.php");   // Tes fonctions html_form et html_table
 
 // On démarre la session pour vérifier si l'étudiant est connecté
 session_start();
@@ -33,57 +33,64 @@ if(!isset($_SESSION["user_id"])){
 </header>
 
 <?php
+
 /**
- * CONTRÔLEUR : Traite les actions GET (liens de suppression/édition)
+ * CONTRÔLEUR : Traite les actions 
  */
 if(isset($_GET["action"])){
+
     $action = $_GET["action"];
-    $id = isset($_GET["id"]) ? intval($_GET["id"]) : 0;
+    // Si on a un ID on le prend, sinon on met 0 (utile pour le formulaire de création)
+    $id = isset($_GET["id"]) ? $_GET["id"] : 0;
 
     if($action == "update_form"){
         /* Affiche le formulaire de modif d'une question */
         $question = readQuestion($conn, $id);
         echo "<div class='form-container'>";
         echo html_form_maj_question($question);
-        echo "</div>";
+        echo "</div>";          
         
     } elseif($action == "create_form"){
         /* Affiche le formulaire de création */
         echo "<div class='form-container'>";
         echo html_form_create_question();
-        echo "</div>";
-
+        echo "</div>"; 
+    
     } elseif($action == "delete"){
-        /* Suppression d'une question */
+        /* On utilise bien la fonction pour les questions ! */
         deleteQuestion($conn, $id);
         echo "<p style='color:red;'>Question supprimée.</p>";
     }
-}
+} 
 
 /**
- * CONTRÔLEUR : Traite les actions POST (validation des formulaires)
+ * CONTRÔLEUR : Traite les actions POST 
  */
 if(isset($_POST["action"])){
     $action = $_POST["action"];
     
-    // On récupère les données du formulaire
+    // On récupère les champs de TON formulaire (voir vue_questions.php)
     $titre   = $_POST["titre"];
     $content = $_POST["content"];
     $tag     = $_POST["tag_matiere"];
 
-    if($action == "update"){
+    if($action == "update" && isset($_POST["id"])){
+        /* Traitement de la modification */
         $id = intval($_POST["id"]);
         updateQuestion($conn, $id, $titre, $content, $tag);
-        echo "<p style='color:green;'>Question mise à jour !</p>";
+        echo "<p style='color:blue;'>Question mise à jour !</p>";
 
     } elseif($action == "create"){
-        // Pour l'instant on force l'id_auteur à 1 et niveau à 1 
-        // En prod, tu utiliseras $_SESSION['user_id']
-        create_question($conn, $titre, $content, $tag, 1, 1);
-        echo "<p style='color:green;'>Question publiée !</p>";
+        $res = create_question($conn, $titre, $content, $tag, 1, 1);
+        
+        if($res){
+            echo "<p style='color:green;'>Question publiée !</p>";
+        } else {
+            // Cette ligne va t'afficher l'erreur exacte (ex: colonne inconnue, faute de frappe...)
+            echo "<p style='color:red;'>Erreur SQL : " . mysqli_error($conn) . "</p>";
+        }
     }
 }
-
 /**
  * AFFICHAGE : Liste des questions
  */
