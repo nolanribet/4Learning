@@ -1,7 +1,7 @@
 # 🎓 4Learning - Entraide Universitaire
 
 ## 🎯 But du projet
-4Learning est une plateforme d'entraide conçue spécifiquement pour les étudiants de l'USMB. Le but est de briser l'isolement face aux difficultés académiques en permettant aux étudiants de poser des questions et de recevoir des explications de la part de leurs pairs plus avancés ou de leurs enseignants.
+4Learning est une plateforme d'entraide conçue pour les étudiants. Le est de permettre aux étudiants de poser des questions et de recevoir des explications de la part de leurs pairs plus avancés ou de leurs enseignants.
 
 ## ⚙️ Comment ça marche ?
 
