@@ -1,9 +1,9 @@
 <?php
 include("../../db_connect.php"); 
-include("crud_questions.php"); // Tes fonctions create, read, update, delete
-include("vue_questions.php");   // Tes fonctions html_form et html_table
+include("crud_questions.php"); 
+include("vue_questions.php");  
 
-// On démarre la session pour vérifier si l'étudiant est connecté
+
 session_start();
 /* // Optionnel : Décommenter si tu as une page de login
 if(!isset($_SESSION["user_id"])){
@@ -30,6 +30,7 @@ if(!isset($_SESSION["user_id"])){
 <header>
     <h1>🎓 4Learning - Panel d'Entraide</h1>
     <hr>
+    <h1><a href="../../../index.php">Retour a l'acceuil</a></h1>
 </header>
 
 <?php
@@ -69,7 +70,7 @@ if(isset($_GET["action"])){
 if(isset($_POST["action"])){
     $action = $_POST["action"];
     
-    // On récupère les champs de TON formulaire (voir vue_questions.php)
+    // On récupère les champs du formulaire
     $titre   = $_POST["titre"];
     $content = $_POST["content"];
     $tag     = $_POST["tag_matiere"];
@@ -86,7 +87,6 @@ if(isset($_POST["action"])){
         if($res){
             echo "<p style='color:green;'>Question publiée !</p>";
         } else {
-            // Cette ligne va t'afficher l'erreur exacte (ex: colonne inconnue, faute de frappe...)
             echo "<p style='color:red;'>Erreur SQL : " . mysqli_error($conn) . "</p>";
         }
     }
