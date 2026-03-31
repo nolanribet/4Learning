@@ -1,31 +1,33 @@
 <?php
+session_start();
+
 include "../db_connect.php";
 include "crud_users.php";
 include "vue_users.php";
 
-session_start();
 
 function choix_avatar_niveau($niveau) { 
-    if ($niveau === 0) {
+    $niveau_entier = (int)$niveau;
+    if ($niveau_entier === 0) {
         return 'avatar_prof.png';
     } 
-    elseif ($niveau === 1) {
+    elseif ($niveau_entier === 1) {
         return 'avatar_l1.png';
     } 
-    elseif ($niveau === 2) {
+    elseif ($niveau_entier === 2) {
         return 'avatar_l2.png';
     } 
-    elseif ($niveau === 3) {
+    elseif ($niveau_entier === 3) {
         return 'avatar_l3.png';
     } 
-    elseif ($niveau === 4) {
+    elseif ($niveau_entier === 4) {
         return 'avatar_m1.png';
     } 
-    elseif ($niveau === 5) {
+    elseif ($niveau_entier === 5) {
         return 'avatar_m2.png';
     } 
     else { # Sécurité pour avoir un avatar de base
-        return 'avatar_default.png';
+        return 'avatar_defaut.png';
     }
 }
 
@@ -137,47 +139,9 @@ elseif (isset($_POST['btn_deconnexion'])){
     echo "Tu as été déconnecté !";
     }
 
-// else {
-//     form_modification_mdp();
-// }
-
-echo "<h1>🛠️ Zone de Test Admin Users</h1>";
-echo "<hr>";
-
-if (isset($_SESSION['id'])) {
-    // ---- MODE CONNECTÉ ----
-    echo "<h2>Bienvenue, " . htmlspecialchars($_SESSION['username']) . " !</h2>";
-    
-    // On récupère les infos fraîches pour pré-remplir le formulaire
-    $user_actuel = recup_user_id($conn, $_SESSION['id']);
-    
-    if ($user_actuel) {
-        echo "<h3>1. Modifier mon profil</h3>";
-        // On affiche le formulaire avec ses infos actuelles
-        form_modification_profil($user_actuel['username'], $user_actuel['email'], $user_actuel['niveau_etude']);
-        
-        echo "<hr>";
-        
-        echo "<h3>2. Changer mon mot de passe</h3>";
-        form_modification_mdp();
-        
-        echo "<hr>";
-        
-        echo "<h3>3. Quitter</h3>";
-        form_deconnexion();
-    }
-} 
-else {
-    // ---- MODE DÉCONNECTÉ (Visiteur) ----
-    echo "<h2>🔑 Se connecter</h2>";
-    form_connexion();
-    
-    echo "<hr>";
-    
-    echo "<h2>📝 Créer un nouveau compte</h2>";
-    form_inscription();
+ else {
+     form_modification_mdp();
 }
 
 ?>
-
 
