@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4Learning - Topic</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/script.js" defer></script>
+</head>
+<body class="no-sidebar">
+
+    <header class="header">
+        <a href="accueil.html" class="logo">
+            <img src="../img/logo_horizontale.png" alt="4Learning Logo" class="logo-img">
+        </a>
+        <div class="search-bar">
+            <input type="text" placeholder="Rechercher un cours, une question...">
+        </div>
+        <div class="user-menu">
+            <img src="../img/avatar_l2.png" alt="Mon Profil" class="avatar-btn">
+            <ul class="dropdown">
+                <li><a href="profil.html">Mon Profil</a></li>
+                <li><a href="#">Mes Crédits</a></li>
+                <li><a href="connexion.html">Déconnexion</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="layout">
+        <main class="main-content">
+            
+            <a href="index.html" style="color: var(--text-muted); display: inline-block; margin-bottom: 20px; font-weight: 500;">← Retour au flux</a>
+
+            <article class="card main-question">
+                <div class="card-header">
+                    <img src="../img/avatar_l2.png" alt="Auteur">
+                    <div class="author-meta">
+                        <h4>Thomas D.</h4>
+                        <span>L1 Info • Il y a 2 heures</span>
+                    </div>
+                </div>
+                <h2>Problème avec les pointeurs en C (Segmentation fault)</h2>
+                <p>Bonjour, j'essaie de parcourir une liste chaînée mais je reçois systématiquement une erreur de segmentation quand j'atteins le dernier noeud. Voici un bout de mon code :</p>
+                
+                <div class="code-block">
+                    while(actuel->suivant != NULL) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;printf("%d\n", actuel->valeur);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;actuel = actuel->suivant;<br>
+                    }
+                </div>
+
+                <div class="card-footer" style="border: none; padding-top: 0; margin-top: 0;">
+                    <div class="tags-container">
+                        <span class="badge-subject">Informatique</span>
+                        <span class="badge-subject">Langage C</span>
+                    </div>
+                </div>
+            </article>
+
+            <div class="thread-container">
+                <article class="reply-card">
+                    <div class="card-header">
+                        <img src="../img/avatar_l2.png" alt="Répondant">
+                        <div class="author-meta">
+                            <h4>Sarah L. <span style="color: var(--primary); font-weight: 700;">[Mentor]</span></h4>
+                            <span>L3 Info • Il y a 45 min</span>
+                        </div>
+                    </div>
+                    <p>Salut Thomas ! Ton erreur vient de ta condition `actuel->suivant != NULL`. Si `actuel` est déjà NULL, essayer d'accéder à `actuel->suivant` provoque un segfault. Essaie plutôt `while(actuel != NULL)`.</p>
+                </article>
+
+                <article class="card reply-form-card">
+                    <h3>Ta réponse</h3>
+                    <form class="reply-form">
+                        <textarea placeholder="Explique ta solution ou pose une question supplémentaire..."></textarea>
+                        <button type="submit" class="btn btn-primary">Publier ma réponse</button>
+                    </form>
+                </article>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>

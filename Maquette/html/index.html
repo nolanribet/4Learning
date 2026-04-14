@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4Learning - Flux</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/script.js" defer></script>
+</head>
+<body class="no-sidebar">
+
+    <header class="header">
+        <a href="accueil.html" class="logo">
+            <img src="../img/logo_horizontale.png" alt="4Learning Logo" class="logo-img">
+        </a>
+        <div class="search-bar">
+            <input type="text" placeholder="Rechercher un cours, une question...">
+        </div>
+        <div class="user-menu">
+            <img src="../img/avatar_l2.png" alt="Mon Profil" class="avatar-btn">
+            <ul class="dropdown">
+                <li><a href="profil.html">Mon Profil</a></li>
+                <li><a href="#">Mes Crédits</a></li>
+                <li><a href="#">Paramètres</a></li>
+                <li><a href="connexion.html">Déconnexion</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="layout">
+        <main class="main-content">
+            <div class="ask-btn-container">
+                <button class="btn btn-primary">Poser une question</button>
+            </div>
+
+            <section class="feed">
+                <article class="card">
+                    <div class="card-header">
+                        <img src="../img/avatar_l2.png" alt="Auteur">
+                        <div class="author-meta">
+                            <h4>Thomas D.</h4>
+                            <span>L1 Info • Il y a 2 heures</span>
+                        </div>
+                    </div>
+                    <h3>Problème avec les pointeurs en C (Segmentation fault)</h3>
+                    <p>Bonjour, j'essaie de parcourir une liste chaînée mais je reçois systématiquement une erreur de segmentation quand j'atteins le dernier noeud. Voici un bout de mon code...</p>
+                    
+                    <div class="card-footer">
+                        <div class="tags-container">
+                            <span class="badge-subject">Informatique</span>
+                            <span class="badge-subject">Langage C</span>
+                        </div>
+                        <a href="question.html" class="btn-reply">Répondre 💬</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <img src="../img/avatar_l2.png" alt="Auteur">
+                        <div class="author-meta">
+                            <h4>Léa M.</h4>
+                            <span>L1 Math • Il y a 5 heures</span>
+                        </div>
+                    </div>
+                    <h3>Démonstration par récurrence - Somme des k cubes</h3>
+                    <p>Je bloque sur l'hérédité dans la démo de la somme des cubes continus...</p>
+                    
+                    <div class="card-footer">
+                        <div class="tags-container">
+                            <span class="badge-subject">Mathématiques</span>
+                            <span class="badge-subject">Algèbre</span>
+                        </div>
+                        <a href="question.html" class="btn-reply">Répondre 💬</a>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>

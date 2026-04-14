@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4Learning - Mon Profil</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/script.js" defer></script>
+</head>
+<body>
+
+    <header class="header">
+        <a href="accueil.html" class="logo">
+            <img src="../img/logo_horizontale.png" alt="4Learning Logo" class="logo-img">
+        </a>
+        <div class="search-bar">
+            <input type="text" placeholder="Rechercher un cours, une question...">
+        </div>
+        <div class="user-menu">
+            <img src="../img/avatar_l2.png" alt="Mon Profil" class="avatar-btn">
+            <ul class="dropdown">
+                <li><a href="profil.html">Mon Profil</a></li>
+                <li><a href="#">Mes Crédits</a></li>
+                <li><a href="#">Paramètres</a></li>
+                <li><a href="connexion.html">Déconnexion</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Flux Principal</a></li>
+                    <li><a href="#">Mes Questions</a></li>
+                    <li><a href="#">Mes Réponses sauvegardées</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="profile-banner">
+                <img src="../img/avatar_l2.png" alt="Avatar Utilisateur" class="profile-avatar">
+            </div>
+            
+            <div class="profile-info">
+                <h1>Thomas D.</h1>
+                <span class="level">L2 Informatique</span>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h4>Réponses postées</h4>
+                    <span class="value">42</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Fiabilité (Upvotes)</h4>
+                    <span class="value">80%</span>
+                    <div class="gauge-container">
+                        <div class="gauge-fill" style="width: 80%;"></div>
+                    </div>
+                </div>
+                <div class="stat-card badges">
+                    <h4>Badges obtenus</h4>
+                    <span class="badge">Mentor C++</span>
+                    <span class="badge">Sauveur de partiels</span>
+                </div>
+            </div>
+
+            <section class="feed">
+                <h3 style="margin-bottom: -15px;">Dernières contributions</h3>
+                <article class="card">
+                    <span class="badge-subject" style="position: absolute; top: 20px; right: 20px;">Réponse</span>
+                    <h3>Re: Problème avec les pointeurs en C</h3>
+                    <p>Pour éviter le segfault, vérifie que la condition de ta boucle while est bien `actuel != NULL` et non `actuel->suivant != NULL` si tu as besoin de traiter le dernier élément.</p>
+                </article>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
