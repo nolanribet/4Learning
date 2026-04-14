@@ -5,7 +5,6 @@ include '../db_connect.php';
 include 'crud_tags.php';
 include 'vue_tags.php';
 
-
 ?>
 <html>
 <head>
@@ -89,7 +88,7 @@ echo html_table_matieres($all_tags);
 
 
 <br>
-<a href="admin_questions.php?action=create_form" class="btn-add">➕ Poser une question</a>
+<a href="admin_tags.php?action=create_form" class="btn-add">➕ Poser une question</a>
 
 </body>
 </html>
