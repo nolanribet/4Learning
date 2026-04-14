@@ -1,13 +1,12 @@
 <?php
-
 function createTags($conn, $name, $color){
-    $sql = "INSERT INTO `tags_matiere` (`name`, `color`) VALUES ('$name', '$color')";
+    $sql = "INSERT INTO `tags_matiere` (`name`, `couleur`) VALUES ('$name', '$color')";
     $req = mysqli_query($conn, $sql);
     return $req;
 }
 
 function updateTags($conn, $name, $color, $id){
-    $sql = "UPDATE `tags_matiere` SET `name`='$name', `color`='$color' WHERE `id`='$id'";
+    $sql = "UPDATE `tags_matiere` SET `name`='$name', `couleur`='$color' WHERE `id`='$id'";
     $req = mysqli_query($conn, $sql);
     return $req;
 }
@@ -25,9 +24,8 @@ function deleteTags($conn, $id){
 }
 
 function listTags($conn){
-    $sql = "SELECT * FROM `tags_matiere` ORDER BY name ASC"; // Petit bonus : trié par nom 🗂️
+    $sql = "SELECT * FROM `tags_matiere` ORDER BY name ASC";
     $req = mysqli_query($conn, $sql);
     return $req;
 }
-
 ?>
