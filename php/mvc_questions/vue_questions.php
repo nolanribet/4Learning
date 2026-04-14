@@ -1,13 +1,110 @@
 <?php
-// vue_questions.php — GET ?tag_id=X&statut=X&search=X
-header('Content-Type: application/json');
-require_once __DIR__ . '/../../php/db_connect.php';
-$pdo = getDB(); $where = []; $params = [];
-if (!empty($_GET['tag_id'])) { $where[] = 'q.tag_id = ?'; $params[] = (int)$_GET['tag_id']; }
-if (!empty($_GET['statut']))  { $where[] = 'q.statut = ?'; $params[] = $_GET['statut']; }
-if (!empty($_GET['search']))  { $s = '%' . $_GET['search'] . '%'; $where[] = '(q.titre LIKE ? OR q.contenu LIKE ?)'; $params[] = $s; $params[] = $s; }
-$wc = $where ? 'WHERE ' . implode(' AND ', $where) : '';
-$sql = "SELECT q.id, q.titre, q.contenu, q.statut, q.niveau_requis, q.created_at, u.username AS auteur, t.nom AS matiere, t.couleur AS matiere_couleur, t.id AS tag_id, COUNT(a.id) AS nb_reponses FROM questions q JOIN users u ON u.id = q.user_id JOIN tags t ON t.id = q.tag_id LEFT JOIN answers a ON a.question_id = q.id $wc GROUP BY q.id ORDER BY q.created_at DESC LIMIT 50";
-$stmt = $pdo->prepare($sql); $stmt->execute($params); $questions = $stmt->fetchAll();
-foreach ($questions as &$q) { $q['date'] = (new DateTime($q['created_at']))->format('d M Y'); unset($q['created_at']); }
-echo json_encode(['success'=>true,'questions'=>$questions]);
+/* * VUE: Composants de l'interface pour les Questions 🎓
+ */
+
+/** * Liste des questions sous forme de tableau (ou de liste de cartes)
+ */
+function html_table_questions($questions) {
+    $html = "<table class='table-questions'>\n";
+    $html .= "<thead><tr><th>Titre</th><th>Matière</th><th>Auteur</th><th>Actions</th></tr></thead>\n";
+    $html .= "<tbody>\n";
+
+    foreach($questions as $question) {
+        $html .= html_tr_question($question);    
+    }
+
+    $html .= "</tbody></table>\n"; 
+    return $html; 
+}
+
+/**
+ * Ligne du tableau: Titre | Matière | Auteur | Edition | Suppression
+ */
+function html_tr_question($question) {
+    // C'est CETTE ligne qui garantit que le bouton "Modifier" 
+    // correspond à la bonne question !
+    $id = $question["id"]; 
+
+    $titre   = $question["titre"]; 
+    $matiere = $question["tag_matiere"]; 
+    $auteur  = $question["id_auteur"]; 
+
+    $html = "<tr>"; 
+    $html .= "<td>$titre</td>";
+    $html .= "<td>$matiere</td>";
+    $html .= "<td>$auteur</td>";
+    $html .= "<td>";
+    
+    $html .= html_a_update_question($id); 
+    $html .= " " . html_a_delete_question($id);
+    
+    $html .= "</td></tr>"; 
+    return $html;
+}
+/** Lien de suppression */
+function html_a_delete_question($id) {
+    $href = "admin_questions.php?action=delete&id=$id"; 
+    return "<a href='$href' onclick='return confirm(\"Supprimer cette question ?\")'><img src='../../../assets/images/delete-good.png' width='25px'></a>";
+}
+
+/** Lien de mise à jour */
+function html_a_update_question($id) {
+    $href = "admin_questions.php?action=update_form&id=$id"; 
+    return "<a href='$href'><img src='../../../assets/images/update.png' width='25px'></a>";
+}
+
+/**
+ * Formulaire de mise à jour (UPDATE)
+ */
+function html_form_maj_question($question) {
+
+    // 2. Extraction des données (Lignes 61, 62, 63, 64 qui posaient problème)
+    $id      = $question["id"]; 
+    $titre   = htmlspecialchars($question["titre"]); 
+    $content = htmlspecialchars($question["content"]); 
+    $matiere = htmlspecialchars($question["tag_matiere"]); 
+    
+    // 3. Génération du HTML
+    $html = "<form action='admin_questions.php' method='POST' class='form-container'>\n"; 
+    $html .= "<h3>Modifier la question #$id</h3>\n";
+    
+    $html .= "<label>Sujet</label><br>\n";
+    $html .= "<input type='text' name='titre' value='$titre' required><br>\n"; 
+    
+    $html .= "<label>Contenu</label><br>\n";
+    $html .= "<textarea name='content' rows='5' required>$content</textarea><br>\n"; 
+    
+    $html .= "<label>Matière</label><br>\n";
+    $html .= "<input type='text' name='tag_matiere' value='$matiere'><br>\n"; 
+    
+    $html .= "<input type='hidden' name='id' value='$id'>\n"; 
+    $html .= "<input type='hidden' name='action' value='update'>\n"; 
+    $html .= "<button type='submit'>Enregistrer</button>\n"; 
+    $html .= "</form>\n";
+
+    return $html; 
+}
+
+/**
+ * Formulaire de création (CREATE)
+ */
+function html_form_create_question() {
+    $html = "<form action='admin_questions.php' method='POST' class='form-card'>\n"; 
+    $html .= "<h3>Poser une nouvelle question</h3>\n";
+    
+    $html .= "<label>Titre de la question</label><br>\n";
+    $html .= "<input type='text' name='titre' placeholder='Ex: Problème d'algèbre...' required><br>\n"; 
+    
+    $html .= "<label>Explications</label><br>\n";
+    $html .= "<textarea name='content' placeholder='Détaillez votre blocage ici...' rows='5' required></textarea><br>\n"; 
+    
+    $html .= "<label>Matière</label><br>\n";
+    $html .= "<input type='text' name='tag_matiere' placeholder='Ex: Maths, Info...'><br>\n"; 
+    
+    $html .= "<input type='hidden' name='action' value='create'>\n"; 
+    $html .= "<button type='submit'>Publier la question</button>\n"; 
+    $html .= "</form>\n";
+
+    return $html; 
+}
+?>

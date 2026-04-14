@@ -6,7 +6,7 @@ $base = $base_path ?? '';
 ?>
 <footer class="footer">
     <div class="container">
-        <img src="<?= $base ?>assets/img/Logo 4Learn .png" alt="4Learning" class="footer__logo">
+        <img src="<?= $base ?>assets/img/logo/logo_classique.png" alt="4Learning" class="footer__logo">
         <p>© 2026 4Learning — Groupe 11, L1 MISPI — Université Savoie Mont Blanc</p>
         <nav class="footer__links">
             <a href="<?= $base ?>pages/questions.php">Questions</a>

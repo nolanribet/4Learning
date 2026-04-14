@@ -1,96 +1,58 @@
 <?php
-// =============================================================
-//  crud_users.php — CRUD utilisateurs
-//  Actions disponibles via $_POST['action'] :
-//    register → inscription
-//    login    → connexion
-//    logout   → déconnexion
-// =============================================================
+include "../db_connect.php";
 
-header('Content-Type: application/json');
-session_start();
-require_once __DIR__ . '/../../php/db_connect.php';
-
-$action = $_POST['action'] ?? $_GET['action'] ?? '';
-
-match($action) {
-    'register' => registerUser(),
-    'login'    => loginUser(),
-    'logout'   => logoutUser(),
-    default    => badRequest()
-};
-
-/* ===== INSCRIPTION ===== */
-function registerUser(): void {
-    $username = trim($_POST['username'] ?? '');
-    $email    = trim($_POST['email']    ?? '');
-    $password = $_POST['password']      ?? '';
-    $niveau   = (int) ($_POST['niveau'] ?? 1);
-
-    $errors = [];
-    if (strlen($username) < 3 || strlen($username) > 50) $errors[] = 'Pseudo : 3 à 50 caractères.';
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL))        $errors[] = 'E-mail invalide.';
-    if (strlen($password) < 8)                             $errors[] = 'Mot de passe : 8 caractères minimum.';
-    if ($niveau < 1 || $niveau > 5)                        $errors[] = 'Niveau invalide.';
-
-    if ($errors) { respond(false, implode(' ', $errors), 400); return; }
-
-    $pdo  = getDB();
-    $stmt = $pdo->prepare('SELECT id FROM users WHERE username = ? OR email = ?');
-    $stmt->execute([$username, $email]);
-    if ($stmt->fetch()) { respond(false, 'Nom d\'utilisateur ou e-mail déjà utilisé.', 409); return; }
-
-    $hash = password_hash($password, PASSWORD_BCRYPT);
-    $pdo->prepare('INSERT INTO users (username, email, password_hash, niveau) VALUES (?, ?, ?, ?)')
-        ->execute([$username, $email, $hash, $niveau]);
-
-    respond(true, 'Compte créé ! Vous pouvez vous connecter.');
+function creer_user($conn, $username, $password_hash, $mail, $niveau_etude, $avatar) {
+    $sql = "INSERT into users (username, email, password, niveau_etude, points_total, score_fiabilite, avatar) values ('$username', '$mail', '$password_hash', '$niveau_etude', 0, 0, '$avatar')";
+    $res=mysqli_query($conn, $sql) ;
+    return $res ; # Booléen qui retourne si la requete est réussi
 }
 
-/* ===== CONNEXION ===== */
-function loginUser(): void {
-    $email    = trim($_POST['email']    ?? '');
-    $password = $_POST['password']      ?? '';
-
-    if (!$email || !$password) { respond(false, 'Champs manquants.', 400); return; }
-
-    $pdo  = getDB();
-    $stmt = $pdo->prepare('SELECT id, username, password_hash, niveau, points, fiabilite FROM users WHERE email = ?');
-    $stmt->execute([$email]);
-    $user = $stmt->fetch();
-
-    if (!$user || !password_verify($password, $user['password_hash'])) {
-        respond(false, 'Email ou mot de passe incorrect.', 401);
-        return;
-    }
-
-    $_SESSION['user_id']   = $user['id'];
-    $_SESSION['username']  = $user['username'];
-    $_SESSION['niveau']    = $user['niveau'];
-
-    respond(true, 'Connexion réussie.', 200, [
-        'user' => [
-            'id'        => $user['id'],
-            'username'  => htmlspecialchars($user['username']),
-            'niveau'    => $user['niveau'],
-            'points'    => $user['points'],
-            'fiabilite' => $user['fiabilite'],
-        ]
-    ]);
+function modifier_user($conn, $id, $username, $mail,  $niveau_etude, $avatar) {
+    $sql="UPDATE users SET username='$username', email='$mail', niveau_etude=$niveau_etude, avatar='$avatar'  WHERE id = '$id'" ;  
+	$res=mysqli_query($conn, $sql) ; 
+	return $res ; 
 }
 
-/* ===== DÉCONNEXION ===== */
-function logoutUser(): void {
-    session_destroy();
-    respond(true, 'Déconnexion réussie.');
+function modifier_mdp_user($conn, $id, $new_password_hash) {
+    $sql="UPDATE users SET password='$new_password_hash'  WHERE id = '$id'" ;  
+	$res=mysqli_query($conn, $sql) ; 
+	return $res ;
 }
 
-/* ===== HELPERS ===== */
-function respond(bool $success, string $message, int $code = 200, array $extra = []): void {
-    http_response_code($code);
-    echo json_encode(array_merge(['success' => $success, 'message' => $message], $extra));
+function supprimer_user($conn, $id) {
+    $sql="DELETE FROM users WHERE id = '$id'" ;  
+	$res=mysqli_query($conn, $sql) ; 
+	return $res ; 
+}   
+
+function recup_user_id($conn, $id) {
+    $sql="SELECT * FROM users WHERE id = '$id'" ;  
+	$res=mysqli_query($conn, $sql) ; 
+    if (mysqli_num_rows($res) == 1) { # Si on a une réponse à la requête SQL
+        return mysqli_fetch_assoc($res); # On renvoie les infos du user sous forme de tableau 
+    } else {
+        return false; 
+    } 
 }
 
-function badRequest(): void {
-    respond(false, 'Action inconnue.', 400);
+function recup_user_mail($conn, $mail) {
+    $sql="SELECT * FROM users WHERE email = '$mail'" ;  
+	$res=mysqli_query($conn, $sql) ; 
+    if (mysqli_num_rows($res) == 1) { # Si on a une réponse à la requête SQL
+        return mysqli_fetch_assoc($res); # On renvoie les infos du user sous forme de tableau associatif
+    } else {
+        return false; 
+    } 
 }
+
+function recup_user_username($conn, $username) {
+    $sql="SELECT * FROM users WHERE username = '$username'" ;  
+	$res=mysqli_query($conn, $sql) ; 
+    if (mysqli_num_rows($res) == 1) { # Si on a une réponse à la requête SQL
+        return mysqli_fetch_assoc($res); # On renvoie les infos du user sous forme de tableau associatif
+    } else {
+        return false; 
+    } 
+}
+
+?>

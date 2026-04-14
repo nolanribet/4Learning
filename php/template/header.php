@@ -17,13 +17,13 @@ $base        = $base_path   ?? '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($page_title) ?> — 4Learning</title>
     <link rel="stylesheet" href="<?= $base ?>assets/css/style.css">
-    <link rel="icon" type="image/png" href="<?= $base ?>assets/img/Logo 4Learn .png">
+    <link rel="icon" type="image/png" href="<?= $base ?>assets/img/logo/favicon.png">
 </head>
 <body>
 
 <header class="navbar">
     <a href="<?= $base ?>index.php" class="navbar__brand">
-        <img src="<?= $base ?>assets/img/Logo Horizontale.png" alt="4Learning" class="navbar__logo">
+        <img src="<?= $base ?>assets/img/logo/logo_horizontale.png" alt="4Learning" class="navbar__logo">
     </a>
     <nav class="navbar__links">
         <a href="<?= $base ?>pages/questions.php"  class="nav-link <?= $active_page === 'questions'  ? 'active' : '' ?>">Questions</a>
