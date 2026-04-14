@@ -6,8 +6,6 @@ include 'crud_tags.php';
 include 'vue_tags.php';
 
 
-
-
 ?>
 <html>
 <head>
