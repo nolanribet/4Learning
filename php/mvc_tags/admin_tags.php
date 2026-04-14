@@ -84,11 +84,14 @@ while ($row = mysqli_fetch_assoc($res_list)) {
 echo html_table_matieres($all_tags);
 
 
+
+
+
 ?>
 
 
 <br>
-<a href="admin_tags.php?action=create_form" class="btn-add">➕ Poser une question</a>
+<a href="admin_tags.php?action=create_form" class="btn-add">➕ Ajouter une matière</a>
 
 </body>
 </html>
