@@ -68,7 +68,7 @@ if(isset($_POST["action"])){
 
     } elseif($post_action == "create"){
         createTags($conn, $name, $color);
-        echo "<p style='color:green;'>Nouvelle matière ajoutée ! ✅</p>";
+        echo "<p style='color:green;'>Nouvelle matière ajoutée ! </p>";
     }
 }
 
