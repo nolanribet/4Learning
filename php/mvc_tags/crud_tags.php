@@ -1,13 +1,13 @@
 <?php
 
 function createTags($conn, $name, $color){
-    $sql = "INSERT INTO `tags_matiere`(`name`,`color`) VALUE('$name','$color')";
+    $sql = "INSERT INTO `tags_matiere`(`name`,`color`) VALUES('$name','$color')";
     $req = mysqli_query($conn, $sql);
     return $req;
 }
 
-function updateTags($conn, $id, $name, $color){
-    $sql = "UPDATE `tags_matiere` SET `id`='$id', `name`='$name', `couleur`='$id' WHERE `id`='$id'";
+function updateTags($conn, $name, $color, $id){
+    $sql = "UPDATE `tags_matiere` SET `name`='$name', `couleur`='$color' WHERE `id`='$id'";
     $req = mysqli_query($conn, $sql);
     return $req;
 }
