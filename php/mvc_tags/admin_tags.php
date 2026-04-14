@@ -24,7 +24,7 @@ include 'vue_tags.php';
 <header>
     <h1>🎓 4Learning - Panel des matières</h1>
     <hr>
-    <p><a href="../../../index.php">🏠 Retour à l'accueil</a></p>
+    <p><a href="../../index.php">🏠 Retour à l'accueil</a></p>
 </header>
 
 <?php
