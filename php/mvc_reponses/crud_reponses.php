@@ -35,7 +35,7 @@ function voter_reponse($conn, $id_reponse, $id_voteur, $note) {
 if (realpath($_SERVER['SCRIPT_FILENAME']) === __FILE__) {
     session_start();
     header('Content-Type: application/json');
-    include '../../db_connect.php';
+    include '../db_connect.php';
 
     $action = $_POST['action'] ?? '';
 

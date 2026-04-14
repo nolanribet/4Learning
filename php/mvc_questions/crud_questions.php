@@ -31,7 +31,7 @@ function deleteQuestion($conn, $id) {
 if (realpath($_SERVER['SCRIPT_FILENAME']) === __FILE__) {
     session_start();
     header('Content-Type: application/json');
-    include '../../db_connect.php';
+    include '../db_connect.php';
 
     if (!isset($_SESSION['id'])) { echo json_encode(['success'=>false, 'message'=>'Connectez-vous.']); exit; }
     if (($_POST['action'] ?? '') !== 'create') { echo json_encode(['success'=>false, 'message'=>'Action inconnue.']); exit; }

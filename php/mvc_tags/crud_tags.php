@@ -28,7 +28,7 @@ function listTags($conn) {
 // Appelé directement (AJAX questions.js) → liste des tags en JSON
 if (realpath($_SERVER['SCRIPT_FILENAME']) === __FILE__) {
     header('Content-Type: application/json');
-    include '../../db_connect.php';
+    include '../db_connect.php';
     $res  = listTags($conn);
     $tags = [];
     while ($row = mysqli_fetch_assoc($res)) {

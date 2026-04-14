@@ -64,7 +64,7 @@ function html_form_create_question() {
 // Appelé directement (AJAX questions.js) → liste des questions en JSON
 if (realpath($_SERVER['SCRIPT_FILENAME']) === __FILE__) {
     header('Content-Type: application/json');
-    include '../../db_connect.php';
+    include '../db_connect.php';
 
     $conditions = [];
     if (!empty($_GET['tag_id'])) $conditions[] = "q.tag_matiere='" . mysqli_real_escape_string($conn, $_GET['tag_id']) . "'";

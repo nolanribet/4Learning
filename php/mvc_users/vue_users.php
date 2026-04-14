@@ -110,7 +110,7 @@ function form_deconnexion() {
 // Appelé directement (AJAX profil.js) → retourne les données du user en JSON
 if (realpath($_SERVER['SCRIPT_FILENAME']) === __FILE__) {
     header('Content-Type: application/json');
-    include '../../db_connect.php';
+    include '../db_connect.php';
 
     $user_id = (int)($_GET['user_id'] ?? 0);
     if ($user_id < 1) { echo json_encode(['success'=>false, 'message'=>'user_id manquant']); exit; }

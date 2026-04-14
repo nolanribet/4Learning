@@ -2,7 +2,7 @@
 // Attribue le badge "Top 3" aux 3 premiers du classement
 session_start();
 header('Content-Type: application/json');
-include '../../db_connect.php';
+include '../db_connect.php';
 
 if (!isset($_SESSION['id'])) { echo json_encode(['success'=>false, 'message'=>'Non autorisé.']); exit; }
 

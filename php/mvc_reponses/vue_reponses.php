@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-include '../../db_connect.php';
+include '../db_connect.php';
 
 $id_question = (int)($_GET['question_id'] ?? 0);
 if ($id_question < 1) { echo json_encode(['success'=>false, 'message'=>'question_id manquant']); exit; }

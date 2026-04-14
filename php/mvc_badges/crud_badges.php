@@ -23,7 +23,7 @@ function attribuer_badges($conn, $id_user) {
 // Appelé directement (AJAX profil.js) → vérifie et attribue les badges, retourne JSON
 if (realpath($_SERVER['SCRIPT_FILENAME']) === __FILE__) {
     header('Content-Type: application/json');
-    include '../../db_connect.php';
+    include '../db_connect.php';
 
     $id_user = (int)($_GET['user_id'] ?? 0);
     if ($id_user < 1) { echo json_encode(['success'=>false, 'message'=>'user_id manquant']); exit; }

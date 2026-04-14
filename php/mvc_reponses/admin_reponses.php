@@ -1,7 +1,7 @@
 <?php
 // Classement général (appelé par classement.js)
 header('Content-Type: application/json');
-include '../../db_connect.php';
+include '../db_connect.php';
 
 $sql_users = "SELECT u.id, u.username, u.niveau_etude as niveau, u.points_total as points, u.score_fiabilite as fiabilite
               FROM users u
