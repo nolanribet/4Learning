@@ -21,7 +21,7 @@ function html_table_matieres($matieres) {
 function html_tr_matiere($matiere) {
     $id    = $matiere["id"]; 
     $name  = $matiere["name"]; 
-    $color = $matiere["color"]; 
+    $color = $matiere["couleur"]; 
 
     $html = "<tr>"; 
     $html .= "<td>$name</td>";
