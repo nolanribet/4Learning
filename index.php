@@ -8,5 +8,7 @@
 </head>
 <body>  
     <p>Page d'accueil</p> 
+    <a href="php/mvc_questions/admin_questions.php">Question MVC</a>
+    <a href="php/mvc_tags/admin_tags.php">Question tags</a>
 </body>
 </html>
