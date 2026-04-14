@@ -14,6 +14,7 @@ function html_table_matieres($matieres) {
         $html .= html_tr_matiere($matiere);    
     }
 
+
     $html .= "</tbody></table>\n"; 
     return $html; 
 }
@@ -28,7 +29,7 @@ function html_tr_matiere($matiere) {
     $html = "<tr>"; 
     $html .= "<td>$name</td>";
     $html .= "<td><code>$color</code></td>";
-    // Petit aperçu visuel de la couleur 🌈
+    // Petit aperçu visuel de la couleur 
     $html .= "<td><div style='width:20px; height:20px; border-radius:50%; background-color:$color;'></div></td>";
     $html .= "<td>";
     
@@ -39,14 +40,14 @@ function html_tr_matiere($matiere) {
     return $html;
 }
 
-/** Liens d'actions (Update / Delete) 🔗 */
+/** Liens d'actions (Update / Delete) */
 function html_a_delete_matiere($id) {
-    $href = "admin_matieres.php?action=delete&id=$id"; 
+    $href = "admin_tags.php?action=delete&id=$id"; 
     return "<a href='$href' onclick='return confirm(\"Supprimer cette matière ?\")'><img src='../../../assets/images/delete-good.png' width='25px'></a>";
 }
 
 function html_a_update_matiere($id) {
-    $href = "admin_matieres.php?action=update_form&id=$id"; 
+    $href = "admin_tags.php?action=update_form&id=$id"; 
     return "<a href='$href'><img src='../../../assets/images/update.png' width='25px'></a>";
 }
 
@@ -64,8 +65,7 @@ function html_form_maj_matiere($matiere) {
     $html .= "<input type='text' name='name' value='$name' required><br>\n"; 
     
     $html .= "<label>Couleur (Hexadécimal)</label><br>\n";
-    $html .= "<input type='color' name='color' value='$color'><br>\n"; // Utilisation du sélecteur de couleur HTML5 🎨
-    
+    $html .= "<input type='color' name='color' value='$color'><br>\n"; 
     $html .= "<input type='hidden' name='id' value='$id'>\n"; 
     $html .= "<input type='hidden' name='action' value='update'>\n"; 
     $html .= "<button type='submit'>Mettre à jour</button>\n"; 
@@ -93,4 +93,3 @@ function html_form_create_matiere() {
     return $html; 
 }
 ?>
-
