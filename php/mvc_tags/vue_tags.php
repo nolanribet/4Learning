@@ -77,7 +77,7 @@ function html_form_maj_matiere($matiere) {
 /** * Formulaire de création d'une matière
  */
 function html_form_create_matiere() {
-    $html = "<form action='admin_matieres.php' method='POST' class='form-card'>\n"; 
+    $html = "<form action='admin_tags.php' method='POST' class='form-card'>\n"; 
     $html .= "<h3>Ajouter une nouvelle matière</h3>\n";
     
     $html .= "<label>Nom</label><br>\n";
